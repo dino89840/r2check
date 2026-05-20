@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R2 Storage Checker</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- AWS SDK v3 S3 client (browser bundle) -->
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1691.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>☁️ Cloudflare R2 Storage Checker</h1>
+    <p class="subtitle">R2 bucket ထဲက data အရွယ်အစား စစ်ဆေးရန်</p>
+
+    <form id="r2Form" class="card">
+      <div class="field">
+        <label for="accountId">Account ID</label>
+        <input type="text" id="accountId" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" required />
+      </div>
+
+      <div class="field">
+        <label for="bucketName">Bucket Name</label>
+        <input type="text" id="bucketName" placeholder="my-bucket" required />
+      </div>
+
+      <div class="field">
+        <label for="accessKey">Access Key ID</label>
+        <input type="text" id="accessKey" placeholder="Access Key" required />
+      </div>
+
+      <div class="field">
+        <label for="secretKey">Secret Access Key</label>
+        <input type="password" id="secretKey" placeholder="Secret Key" required />
+        <button type="button" id="toggleSecret" class="toggle-btn">👁️</button>
+      </div>
+
+      <div class="field checkbox-field">
+        <label>
+          <input type="checkbox" id="rememberMe" />
+          Remember me (localStorage မှာ သိမ်းမည်)
+        </label>
+        <button type="button" id="clearStorage" class="clear-btn">Clear Saved</button>
+      </div>
+
+      <button type="submit" id="checkBtn" class="primary-btn">
+        🔍 Check Storage
+      </button>
+    </form>
+
+    <div id="status" class="status hidden"></div>
+
+    <div id="result" class="result hidden">
+      <h2>📊 Result</h2>
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-label">Total Objects</div>
+          <div class="stat-value" id="totalObjects">-</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Total Size</div>
+          <div class="stat-value" id="totalSize">-</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Bucket</div>
+          <div class="stat-value" id="bucketLabel">-</div>
+        </div>
+      </div>
+
+      <details class="details-box">
+        <summary>📋 Raw breakdown (top 20 largest files)</summary>
+        <div id="fileList"></div>
+      </details>
+    </div>
+
+    <footer>
+      <p>Deployed on Cloudflare Pages · Single-user tool</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
